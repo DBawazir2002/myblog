@@ -1,0 +1,21 @@
+<?php
+
+$target = '/home/myblog/myblog/storage/app';
+$link = '/home/myblog/public_html/storage';
+
+$source_file = $target;
+$link_name = $link;
+
+if (file_exists($source_file)) {
+    if (is_writable(dirname($link_name))) {
+        if (symlink($source_file, $link_name)) {
+            echo "Symbolic link '$link_name' created successfully.\n";
+        } else {
+            echo "Failed to create symbolic link '$link_name'. Error: " . error_get_last()['message'] . "\n";
+        }
+    } else {
+        echo "Error: You do not have permission to create the symbolic link '$link_name' in the destination directory.\n";
+    }
+} else {
+    echo "Error: Source file '$source_file' does not exist.\n";
+}
